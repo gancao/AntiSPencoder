@@ -1,0 +1,8 @@
+name: AntiSPencoder_env
+dependencies:
+  - python=3.9.12
+  - pip=22.2.2
+  - pip:
+    - numpy==1.26.4
+    - pandas==2.2.2
+    - sklearn==1.1.1

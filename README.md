@@ -55,12 +55,13 @@ If GPU not available:
 
 ### Run cases
 
-See <a href="https://github.com/gancao/AntiSPencoder/blob/main/AntiSP_analysis.py" target="_blank">Cases</a> for performing embeddings.
+See <a href="https://github.com/gancao/AntiSPencoder/blob/main/script/AntiSP_analysis.py" target="_blank">Cases</a> for performing embeddings.
 
 ### Quick start
-```
-    model_dir = "../model"
 
+The python codes:
+```
+    model_dir = "model"
     if torch.cuda.is_available():
         device = torch.device("cuda")  
     else:
@@ -69,7 +70,7 @@ See <a href="https://github.com/gancao/AntiSPencoder/blob/main/AntiSP_analysis.p
     encoder_path = os.path.join(model_dir, "filter_C_TCRdb_AntiSPencoder_checkpoint.ep29")
     pretrain = AntiSPencoder.TCREPbert(device=device)
 
-    state_dict = torch.load(encoder_path, map_location=device)['model_state_dict'] # 加载文件
+    state_dict = torch.load(encoder_path, map_location=device)['model_state_dict']
     pretrain.load_state_dict(state_dict)
     pretrain = pretrain.to(device)
     pretrain.eval()
@@ -77,6 +78,30 @@ See <a href="https://github.com/gancao/AntiSPencoder/blob/main/AntiSP_analysis.p
         param.requires_grad = False
     pretrain.eval()
 
-    sequence = ['CAAPQAGTALIF','CTDLNTGGFKTIF','CAGPTGGSYIPTF','CAMHRDDKIIF']
+    sequence = list(set(['CAAPQAGTALIF','CTDLNTGGFKTIF','CAGPTGGSYIPTF','CAMHRDDKIIF']))
     encoder_info,embeddings_info = pretrain.predict(sequence,device=device,batch_size=4,num_workers=4)
+    encoder_info.to_csv("encoder_info.txt",sep="\t")
+    embeddings_info.to_csv("embeddings_info.txt",sep="\t")
+```
+
+## Prediction of TCR antigen-specificity based on known TCR-epitope pairs
+
+The R script predict_epitope_code.R require three key data files deposited on zenodo website. More details can been seen from https://zenodo.org/records/18113375
+
+### Quick start 
+```
+    library(data.table)
+    library(Matrix)
+    library(foreach)
+    library(doParallel)
+    library(stringdist)
+    library(stringr)
+    library("gtools")
+    source("script/predict_epitope_code.R",chdir = T)
+
+    embeddings_info = read.delim("embeddings_info.txt",header=T,row.names=1,check.names=F)
+    rownames(embeddings_info) <- as.character(embeddings_info$sequence)
+    embeddings_info = embeddings_info[,-(1:2)]
+    chain_info = c('TRA','TRA','TRA','TRA')
+    pedict_info = predict_epitope_by_min_distance(embeddings_info,chain_info,cores=4,aa_dist=3)
 ```
