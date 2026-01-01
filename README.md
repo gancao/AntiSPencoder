@@ -1,14 +1,14 @@
 # AntiSPencoder
 Embed TCR CDR3 and antigen peptide amino acid sequences into low-dimensonal, continuous and numerical vectors 
 
-![流程图](https://github.com/user-attachments/assets/ab27b716-19fa-4172-baad-e2a04958625e)
+![Figure](https://github.com/gancao/AntiSPencoder/blob/main/AntiSPencoder.png)
 
 
 
 
 ## Overview
 
-RedeVHD is an efficient spatial transcriptomics deconvolution algorithm designed for high-definition ST data. By directly modeling the relationship between bin-level gene expression and cell-type abundance, the algorithm can process datasets comprising millions of bins or spots within tens of minutes with GPU acceleration. RedeVHD is a python package written in Python 3.9 and pytorch 1.12.
+AntiSPencoder is a BERT-based deep learning model that encodes TCR CDR3 and antigen peptide sequences into low-dimensional, meaningful embeddings. This approach enables a systematic investigation of TCR specificity across diverse antigens, healthy tissues, and cancer types. Through extensive validations, we demonstrate that AntiSPencoder effectively clusters TCRs with similar CDR3 sequences and antigen-specificities in the embedding space, providing a robust computational foundation for subsequent analyses. AntiSPencoder is a python package written in Python 3.9 and pytorch 1.12.
 
 
 ## Installation
@@ -17,25 +17,25 @@ RedeVHD is an efficient spatial transcriptomics deconvolution algorithm designed
 
 [2] Clone this repository:
 ```
-    git clone https://github.com/Roshan1992/RedeVHD.git
+    git clone https://github.com/gancao/AntiSPencoder.git
 ```
 
-[3] Change to RedeVHD directory:
+[3] Change to AntiSPencoder directory:
 ```
-    cd RedeVHD
+    cd AntiSPencoder
 ```
 
-[4] Create a conda environment with the required dependencies:
+[4] Create a conda environment with the required dependencies if you need:
 ```
     conda env create -f environment.yml
 ```
 
-[5] Activate the RedeVHD_env environment you just created:
+[5] Activate the AntiSPencoder_env environment if you created:
 ```
-    conda activate RedeVHD_env
+    conda activate AntiSPencoder_env
 ```
 
-[6] Install RedeVHD:
+[6] Install AntiSPencoder:
 ```
     pip install .
 ```
@@ -51,8 +51,32 @@ If GPU not available:
     pip install torch==1.12.1+cpu torchvision==0.13.1+cpu torchaudio==0.12.1 --extra-index-url https://download.pytorch.org/whl/cpu
 ```
 
+## Run AntiSPencoder
 
-### Run RedeVHD
+### Run cases
 
-See <a href="https://github.com/Roshan1992/VHD/blob/main/example.ipynb" target="_blank">example</a> for implementing VHD.
+See <a href="https://github.com/gancao/AntiSPencoder/blob/main/AntiSP_analysis.py" target="_blank">Cases</a> for performing embeddings.
 
+### Quick start
+```
+    model_dir = "../model"
+
+    if torch.cuda.is_available():
+        device = torch.device("cuda")  
+    else:
+        device = torch.device("cpu")
+    
+    encoder_path = os.path.join(model_dir, "filter_C_TCRdb_AntiSPencoder_checkpoint.ep29")
+    pretrain = AntiSPencoder.TCREPbert(device=device)
+
+    state_dict = torch.load(encoder_path, map_location=device)['model_state_dict'] # 加载文件
+    pretrain.load_state_dict(state_dict)
+    pretrain = pretrain.to(device)
+    pretrain.eval()
+    for param in pretrain.parameters():
+        param.requires_grad = False
+    pretrain.eval()
+
+    sequence = ['CAAPQAGTALIF','CTDLNTGGFKTIF','CAGPTGGSYIPTF','CAMHRDDKIIF']
+    encoder_info,embeddings_info = pretrain.predict(sequence,device=device,batch_size=4,num_workers=4)
+```
