@@ -53,10 +53,6 @@ If GPU not available:
 
 ## Run AntiSPencoder
 
-### Run cases
-
-See <a href="https://github.com/gancao/AntiSPencoder/blob/main/script/AntiSP_analysis.py" target="_blank">Cases</a> for performing embeddings.
-
 ### Quick start
 
 The python codes:
@@ -83,6 +79,9 @@ The python codes:
     encoder_info.to_csv("encoder_info.txt",sep="\t")
     embeddings_info.to_csv("embeddings_info.txt",sep="\t")
 ```
+### Run cases
+
+See <a href="https://github.com/gancao/AntiSPencoder/blob/main/script/AntiSP_analysis.py" target="_blank">Cases</a> for performing embeddings in this paper.
 
 ## Prediction of TCR antigen-specificity based on known TCR-epitope pairs
 
