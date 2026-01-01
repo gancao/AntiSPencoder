@@ -20,7 +20,7 @@ AntiSPencoder is a BERT-based deep learning model that encodes TCR CDR3 and anti
     git clone https://github.com/gancao/AntiSPencoder.git
 ```
 
-[3] Change to AntiSPencoder directory:
+[3] Change to AntiSPencoder directory including setup.py:
 ```
     cd AntiSPencoder
 ```
@@ -35,7 +35,7 @@ AntiSPencoder is a BERT-based deep learning model that encodes TCR CDR3 and anti
     conda activate AntiSPencoder_env
 ```
 
-[6] Install AntiSPencoder:
+[6] You can also directly install AntiSPencoder:
 ```
     pip install .
 ```
