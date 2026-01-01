@@ -3,37 +3,6 @@ import pandas as pd
 import AntiSPencoder
 import os
 
-vocab2index = {
-	'[PAD]':0,
-	'[SEP]':1,
-	'[MASK]':2,
-	'[CLS]':3,
-	'[UNK]':4,
-	'A':5,
-	'C':6,
-	'D':7,
-	'E':8,
-	'F':9,
-	'G':10,
-	'H':11,
-	'I':12,
-	'K':13,
-	'L':14,
-	'M':15,
-	'N':16,
-	'P':17,
-	'Q':18,
-	'R':19,
-	'S':20,
-	'T':21,
-	'V':22,
-	'W':23,
-	'Y':24,
-	}
-
-class_list = pd.DataFrame(['TRA','TRB','Antigen peptide'])
-
-
 def get_huARdb():
 	file = "../data/huARdbv2/huARdb_v2_GEX.CD8.all_genes_seurat_metadata.txt"
 	metadata = pd.read_csv(file,sep="\t",header=0,index_col=0)
