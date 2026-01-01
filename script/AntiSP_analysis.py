@@ -38,8 +38,6 @@ def get_cdr3_epitope():
 
 if __name__ == '__main__':
 	model_dir = "../model"
-	prefix = 'All'
-
 	if torch.cuda.is_available():
 		device = torch.device("cuda")  
 	else:
@@ -50,7 +48,7 @@ if __name__ == '__main__':
 	encoder_path = os.path.join(model_dir, "filter_C_TCRdb_AntiSPencoder_checkpoint.ep29")
 	pretrain = AntiSPencoder.TCREPbert(device=device)
 
-	state_dict = torch.load(encoder_path, map_location=device)['model_state_dict'] # 加载文件
+	state_dict = torch.load(encoder_path, map_location=device)['model_state_dict']
 	pretrain.load_state_dict(state_dict)
 	pretrain = pretrain.to(device)
 	pretrain.eval()
