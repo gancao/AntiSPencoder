@@ -98,7 +98,7 @@ The R script predict_epitope_code.R require three key data files deposited on ze
     library("gtools")
     source("script/predict_epitope_code.R",chdir = T)
 
-    embeddings_info = read.delim("embeddings_info.txt",header=T,row.names=1,check.names=F)
+    embeddings_info = read.delim("embeddings_info.txt",header=T,check.names=F)
     rownames(embeddings_info) <- as.character(embeddings_info$sequence)
     embeddings_info = embeddings_info[,-(1:2)]
     chain_info = c('TRA','TRA','TRA','TRA')
