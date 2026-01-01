@@ -1,5 +1,5 @@
-# RedeVHD
-Ultra-fast and Accurate Fine-grained Cell-type Deconvolution for High-definition Spatial Transcriptomics with Deep Learning
+# AntiSPencoder
+Embed TCR CDR3 and antigen peptide amino acid sequences into low-dimensonal, continuous and numerical vectors 
 
 ![流程图](https://github.com/user-attachments/assets/ab27b716-19fa-4172-baad-e2a04958625e)
 
@@ -50,12 +50,6 @@ If GPU not available:
 ```
     pip install torch==1.12.1+cpu torchvision==0.13.1+cpu torchaudio==0.12.1 --extra-index-url https://download.pytorch.org/whl/cpu
 ```
-
-## Quick Start
-
-### Download example data
-
-Click <a href="https://drive.google.com/file/d/1QTw26zPdcWVcfr04db2CwGnBZLDG_Q5e/view?usp=drive_link" target="_blank">here</a> to download the example data and extract it.
 
 
 ### Run RedeVHD
