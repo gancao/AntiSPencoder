@@ -2,6 +2,7 @@ import torch
 import pandas as pd
 import AntiSPencoder
 import os
+import sys
 
 def get_huARdb():
 	file = "../data/huARdbv2/huARdb_v2_GEX.CD8.all_genes_seurat_metadata.txt"
@@ -81,11 +82,12 @@ if __name__ == '__main__':
 	#for TCR-epitope
 	sequence = get_cdr3_epitope()
 	encoder_save_file = "../analysis/tcr_antigen_db/tcr_epitope_complete_cdr3_filter_encoder_info.txt"
-	encoder_info,embeddings_info = pretrain.predict(sequence,device=device,batch_size=32,num_workers=4)
+	encoder_info,embeddings_info = pretrain.predict(sequence, device=device,batch_size=32,num_workers=4)
 	embed_save_file = "../analysis/tcr_antigen_db/tcr_epitope_complete_cdr3_filter_embedding_info.txt"
 	embeddings_info.to_csv(embed_save_file,sep="\t")
-
-	#independent TCR dataset for AntiSPencoder
+	sys.exit(0)
+	
+    #independent TCR dataset for AntiSPencoder
 	sequence = get_independent_test_list()
 	#for index,chunk in enumerate(sequence_chunks):
 	encoder_save_file = "../analysis/independent_test/All_AntiSPencoder_independent_test_encoder_info.txt"
