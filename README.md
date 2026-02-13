@@ -145,7 +145,9 @@ The R script predict_epitope_code.R require three key data files deposited on ze
 
     visualize_pred_info(pred_epitopes,result_dir="../analysis/celltypist",prefix="celltypist",metadata_info=metadata_info,cdr3_pair_info=cdr3_pair_info,ncores=10,plot_MSA=TRUE)
 ```
+
 The created HTML file (celltypist_predict_TCR-pMHC_visualizations.html) illustrated the prediced antigens for user-defined TCRs:
+
 ![Figure](https://github.com/gancao/AntiSPencoder/blob/main/celltypist1.png)
 ![Figure](https://github.com/gancao/AntiSPencoder/blob/main/celltypist2.png)
 ![Figure](https://github.com/gancao/AntiSPencoder/blob/main/celltypist3.png)
