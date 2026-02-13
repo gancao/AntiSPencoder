@@ -89,7 +89,7 @@ See <a href="https://github.com/gancao/AntiSPencoder/blob/main/script/AntiSP_ana
 
 ## Prediction of TCR antigen-specificity based on known TCR-epitope pairs
 
-The R script predict_epitope_code.R require three key data files deposited on zenodo website. More details can been seen from https://zenodo.org/records/18113375
+The R script predict_epitope_code.R require three key data files deposited on zenodo website. More details can been seen from https://zenodo.org/records/18617966
 
 ### Usage
 
@@ -145,3 +145,8 @@ The R script predict_epitope_code.R require three key data files deposited on ze
 
     visualize_pred_info(pred_epitopes,result_dir="../analysis/celltypist",prefix="celltypist",metadata_info=metadata_info,cdr3_pair_info=cdr3_pair_info,ncores=10,plot_MSA=TRUE)
 ```
+The created HTML file (celltypist_predict_TCR-pMHC_visualizations.html) illustrated the prediced antigens for user-defined TCRs:
+![Figure](https://github.com/gancao/AntiSPencoder/blob/main/celltypist1.png)
+![Figure](https://github.com/gancao/AntiSPencoder/blob/main/celltypist2.png)
+![Figure](https://github.com/gancao/AntiSPencoder/blob/main/celltypist3.png)
+![Figure](https://github.com/gancao/AntiSPencoder/blob/main/celltypist4.png)
