@@ -58,6 +58,15 @@ def get_independent_tcr_pmhc():
 	seqs = list(set(seqs).difference(set(['nan'])))
 	return seqs
 
+def get_immunetherapy_TCR():
+
+	tcr_file = "../data/skin_immunotherapy/merge_tcr_metadata.txt"
+	tcr_info = pd.read_csv(tcr_file,sep="\t",header=0,index_col=0)
+	seqs = list(set(tcr_info['cdr3'].dropna().tolist()))
+	seqs = list(set(seqs).difference(set(['nan','None'])))
+	print(len(seqs))
+	return seqs	
+
 
 if __name__ == '__main__':
 	model_dir = "../model"
@@ -83,36 +92,42 @@ if __name__ == '__main__':
 	sequence = get_cdr3_epitope()
 	encoder_save_file = "../analysis/tcr_antigen_db/tcr_epitope_complete_cdr3_filter_encoder_info.txt"
 	encoder_info,embeddings_info = pretrain.predict(sequence, device=device,batch_size=32,num_workers=4)
-	embed_save_file = "../analysis/tcr_antigen_db/tcr_epitope_complete_cdr3_filter_embedding_info.txt"
-	embeddings_info.to_csv(embed_save_file,sep="\t")
-	sys.exit(0)
+	# embed_save_file = "../analysis/tcr_antigen_db/tcr_epitope_complete_cdr3_filter_embedding_info.txt"
+	# embeddings_info.to_csv(embed_save_file,sep="\t")
 	
     #independent TCR dataset for AntiSPencoder
 	sequence = get_independent_test_list()
 	#for index,chunk in enumerate(sequence_chunks):
 	encoder_save_file = "../analysis/independent_test/All_AntiSPencoder_independent_test_encoder_info.txt"
 	encoder_info,embeddings_info = pretrain.predict(sequence,device=device,batch_size=32,num_workers=4)
-	encoder_info.to_csv(encoder_save_file,sep="\t")
-	embed_save_file = "../analysis/independent_test/All_AntiSPencoder_independent_test_embedding_info.txt"
-	embeddings_info.to_csv(embed_save_file,sep="\t")
+	# encoder_info.to_csv(encoder_save_file,sep="\t")
+	# embed_save_file = "../analysis/independent_test/All_AntiSPencoder_independent_test_embedding_info.txt"
+	# embeddings_info.to_csv(embed_save_file,sep="\t")
 
 	#independent TCR-epitope dataset for AntiSPencoder
 	sequence = get_independent_tcr_pmhc()
 	encoder_save_file = "../analysis/independent_tcr_antigen_db/tcr_epitope_human_independent_filter_encoder_info.txt"
 	encoder_info,embeddings_info = pretrain.predict(sequence,device=device,batch_size=32,num_workers=4)
-	encoder_info.to_csv(encoder_save_file,sep="\t")
-	embed_save_file = "../analysis/independent_tcr_antigen_db/tcr_epitope_human_independent_filter_embedding_info.txt"
-	embeddings_info.to_csv(embed_save_file,sep="\t")
+	# encoder_info.to_csv(encoder_save_file,sep="\t")
+	# embed_save_file = "../analysis/independent_tcr_antigen_db/tcr_epitope_human_independent_filter_embedding_info.txt"
+	# embeddings_info.to_csv(embed_save_file,sep="\t")
 
 	#celltypist
 	sequence = get_celltypist()
 	encoder_info,embeddings_info = pretrain.predict(sequence,device=device,batch_size=256,num_workers=4)
-	embed_save_file = "../analysis/celltypist/tcr_embedding_info.txt"
-	embeddings_info.to_csv(embed_save_file,sep="\t")
+	# embed_save_file = "../analysis/celltypist/tcr_embedding_info.txt"
+	# embeddings_info.to_csv(embed_save_file,sep="\t")
 
 	#huARdb
 	sequence = get_huARdb()
 	encoder_info,embeddings_info = pretrain.predict(sequence,device=device,batch_size=256,num_workers=4)
-	embed_save_file = "../analysis/huARdb_v2_GEX.CD8/tcr_embedding_info.txt"
-	embeddings_info.to_csv(embed_save_file,sep="\t")
+	# embed_save_file = "../analysis/huARdb_v2_GEX.CD8/tcr_embedding_info.txt"
+	# embeddings_info.to_csv(embed_save_file,sep="\t")
 
+	#immunotherapy
+	sequence = get_immunetherapy_TCR()
+	encoder_save_file = "../analysis/skin_immunotherapy/tcr_encoder_info.txt"
+	encoder_info,embeddings_info = pretrain.predict(sequence,device=device,batch_size=256,num_workers=4)
+	# encoder_info.to_csv(encoder_save_file,sep="\t")
+	# embed_save_file = "../analysis/skin_immunotherapy/tcr_embedding_info.txt"
+	# embeddings_info.to_csv(embed_save_file,sep="\t")
